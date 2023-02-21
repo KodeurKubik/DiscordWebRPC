@@ -1,0 +1,14 @@
+{
+    "app_id": "",
+    "details": "",
+    "state": "",
+    "large_text": "",
+    "small_text": "",
+    "start": true,
+    "buttons": [
+        {
+            "label": "RPC Needs at least one button",
+            "url": "https://github.com/TotoroGaming/DiscordWebRPC"
+        }
+    ]
+}
