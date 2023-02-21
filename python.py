@@ -155,7 +155,7 @@ if __name__ == "__main__":
     webServer = HTTPServer((hostName, serverPort), Server)
     print("\nOpen the Web configuration here: http://%s:%s" % (hostName, serverPort))
     print('============= LOGS =============')
-    #webbrowser.open("http://%s:%s" % (hostName, serverPort))
+    webbrowser.open("http://%s:%s" % (hostName, serverPort))
 
     try:
         webServer.serve_forever()
