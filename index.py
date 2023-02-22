@@ -6,12 +6,16 @@ import webbrowser
 import colorama
 from pypresence.presence import Presence
 
+VALIDATION = True
+if '--no-validation' in sys.argv:
+    VALIDATION = False
+
 hostName = "localhost"
 serverPort = 8080
 now = time.time()
 
 if __name__ == "__main__":
-    input(colorama.Fore.RED + 'IMPORTANT!\nCreate an app on Discord: https://discord.com/developers/applications\nIn "Rich presence" and then in "Art assets", upload 2 files named "big" and "small" for the big and small image\nIn "General informations", the "name" is the name of your Rich Presence, and copy the "APPLICATION ID".\n\nPress Enter to continue' + colorama.Fore.WHITE)
+    if VALIDATION: input(colorama.Fore.RED + 'IMPORTANT!\nCreate an app on Discord: https://discord.com/developers/applications\nIn "Rich presence" and then in "Art assets", upload 2 files named "big" and "small" for the big and small image\nIn "General informations", the "name" is the name of your Rich Presence, and copy the "APPLICATION ID".\n\nPress Enter to continue' + colorama.Fore.WHITE)
 
     configFile = open('config.json', 'r', encoding='utf-8')
     config = json.load(configFile)
@@ -71,10 +75,8 @@ if __name__ == "__main__":
 
 
     print('Config file parsed, checking fields...')
-    if config['app_id'] == 'undefined':
-        AppIdToReset = False
-    else:
-        AppIdToReset = input('Tap "Enter" to launch or type something to change the App ID: ')
+    AppIdToReset = False
+    if VALIDATION: AppIdToReset = input('Tap "Enter" to launch or type something to change the App ID: ')
 
     if AppIdToReset:
         config['app_id'] = 'undefined'
@@ -82,16 +84,19 @@ if __name__ == "__main__":
     try:
         Presence(config['app_id']).connect()
     except:
-        inputAppID = input('App id not found in config, please paste it here: ')
-        try:
-            Presence(inputAppID).connect()
-            config['app_id'] = inputAppID
+        if VALIDATION:
+            inputAppID = input('App id not found in config, please paste it here: ')
+            try:
+                Presence(inputAppID).connect()
+                config['app_id'] = inputAppID
 
-            fp = open('config.json', 'w', encoding='utf-8')
-            json.dump(config, fp)
-            fp.close()
-        except:
-            sys.exit('[Stopping] Invalid app id')
+                fp = open('config.json', 'w', encoding='utf-8')
+                json.dump(config, fp)
+                fp.close()
+            except:
+                sys.exit('[Stopping] Invalid app id')
+        else:
+            sys.exit('--no-validation enabled, App ID invalid. Stopping')
 
     RPC = Presence(config['app_id'])
     RPC.connect()
@@ -155,7 +160,7 @@ if __name__ == "__main__":
     webServer = HTTPServer((hostName, serverPort), Server)
     print("\nOpen the Web configuration here: http://%s:%s" % (hostName, serverPort))
     print('============= LOGS =============')
-    webbrowser.open("http://%s:%s" % (hostName, serverPort))
+    if VALIDATION: webbrowser.open("http://%s:%s" % (hostName, serverPort))
 
     try:
         webServer.serve_forever()
