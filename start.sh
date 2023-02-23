@@ -8,7 +8,6 @@ if ! command -v python3 &> /dev/null; then
 fi
 
 echo "Installing every dependency..."
-python3 -m pip install colorama
 python3 -m pip install pypresence
 clear
 python3 index.py
