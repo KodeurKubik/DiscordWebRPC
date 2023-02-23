@@ -3,8 +3,12 @@ import time
 import sys
 import json
 import webbrowser
-import colorama
 from pypresence.presence import Presence
+
+# COLORS
+RED = '[31m'
+WHITE = '[37m'
+
 
 VALIDATION = True
 if '--no-validation' in sys.argv:
@@ -15,7 +19,7 @@ serverPort = 8080
 now = time.time()
 
 if __name__ == "__main__":
-    if VALIDATION: input(colorama.Fore.RED + 'IMPORTANT!\nCreate an app on Discord: https://discord.com/developers/applications\nIn "Rich presence" and then in "Art assets", upload 2 files named "big" and "small" for the big and small image\nIn "General informations", the "name" is the name of your Rich Presence, and copy the "APPLICATION ID".\n\nPress Enter to continue' + colorama.Fore.WHITE)
+    if VALIDATION: input(RED + 'IMPORTANT!\nCreate an app on Discord: https://discord.com/developers/applications\nIn "Rich presence" and then in "Art assets", upload 2 files named "big" and "small" for the big and small image\nIn "General informations", the "name" is the name of your Rich Presence, and copy the "APPLICATION ID".\n\nPress Enter to continue' + WHITE)
 
     configFile = open('config.json', 'r', encoding='utf-8')
     config = json.load(configFile)
