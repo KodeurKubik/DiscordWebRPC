@@ -12,7 +12,6 @@ bash start.sh
 
 Then install the dependencies:
 ```
-pip3 install colorama
 pip3 install pypresence
 ```
 and run the script:
