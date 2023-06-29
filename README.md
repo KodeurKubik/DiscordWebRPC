@@ -7,7 +7,10 @@ Manage an RPC on Discord on a website!
 > If you are on Mac or Linux, do like on Windows OR run the start.sh file by using the following:
 ```
 bash start.sh
+# Or
+sh start.sh
 ```
+
 > If you are on Windows, use the following:
 
 Then install the dependencies:
